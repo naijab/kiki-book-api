@@ -3,6 +3,7 @@ package api
 import (
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
+	"kiki-book/api/book"
 	"net/http"
 )
 
@@ -19,6 +20,9 @@ func New(enableCORS bool) (*echo.Echo, error) {
 	e.GET("/ping", func(c echo.Context) error {
 		return c.String(http.StatusOK, "pong")
 	})
+
+	b := book.NewResource()
+	e.GET("/books", b.GetAll)
 
 	return e, nil
 }
